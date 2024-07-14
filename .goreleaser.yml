@@ -11,12 +11,12 @@ builds:
     # usage by users in CI/CD systems like HCP Terraform where
     # they are unable to install libraries.
     - CGO_ENABLED=1
+    - CC=musl-gcc
   mod_timestamp: '{{ .CommitTimestamp }}'
   flags:
     - -trimpath
   ldflags:
-    - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
-    - '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"'
+    - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"'
   goos:
     - freebsd
     - windows
